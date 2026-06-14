@@ -180,23 +180,27 @@ h1 {
 }
 .search-box {
   margin: 24px 0 30px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  padding: 16px;
 }
 
 .search-box input {
   width: 100%;
-  padding: 13px 15px;
-  background: #0b0b0b;
+  display: block;
+  background: var(--panel);
   color: var(--text);
   border: 1px solid var(--line);
-  font-size: 16px;
+  padding: 26px 28px;
+  font-size: 17px;
   outline: none;
 }
 
+.search-box input::placeholder {
+  color: var(--muted);
+  font-style: italic;
+}
+
 .search-box input:focus {
-  border-color: #777;
+  background: var(--panel-soft);
+  border-color: #666;
 }
 
 #search-count {
