@@ -178,3 +178,29 @@ h1 {
     font-size: 34px;
   }
 }
+.search-box {
+  margin: 24px 0 30px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 16px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 13px 15px;
+  background: #0b0b0b;
+  color: var(--text);
+  border: 1px solid var(--line);
+  font-size: 16px;
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: #777;
+}
+
+#search-count {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 10px 0 0;
+}
