@@ -33,6 +33,11 @@
         </p>
       </header>
 
+      <div class="search-box">
+        <input id="library-search" type="search" placeholder="搜索 Library 文件……">
+        <p id="search-count"></p>
+      </div>
+
       <section class="contents-box">
         <h2>Contents</h2>
         <ol>
@@ -180,7 +185,63 @@
           <span></span>
         </a>
       </section>
-    </main>
+        </main>
   </div>
+
+  <script>
+    const searchInput = document.getElementById("library-search");
+    const searchCount = document.getElementById("search-count");
+
+    function getVisibleCards() {
+      return Array.from(document.querySelectorAll(".file-card"))
+        .filter(card => card.style.display !== "none");
+    }
+
+    function searchLibrary() {
+      const query = searchInput.value.trim().toLowerCase();
+      const terms = query.split(/\s+/).filter(Boolean);
+      const sections = document.querySelectorAll(".library-section");
+
+      let visibleCards = 0;
+
+      sections.forEach(section => {
+        const cards = section.querySelectorAll(".file-card");
+        let sectionHasVisibleCard = false;
+
+        cards.forEach(card => {
+          const title = card.textContent.toLowerCase();
+          const keywords = (card.dataset.keywords || "").toLowerCase();
+          const searchableText = title + " " + keywords;
+
+          const matched =
+            terms.length === 0 ||
+            terms.every(term => searchableText.includes(term));
+
+          card.style.display = matched ? "block" : "none";
+
+          if (matched) {
+            visibleCards++;
+            sectionHasVisibleCard = true;
+          }
+        });
+
+        section.style.display = sectionHasVisibleCard ? "block" : "none";
+      });
+
+      searchCount.textContent =
+        terms.length === 0 ? "" : `找到 ${visibleCards} 个结果`;
+    }
+
+    searchInput.addEventListener("input", searchLibrary);
+
+    searchInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        const firstResult = getVisibleCards()[0];
+        if (firstResult) {
+          firstResult.click();
+        }
+      }
+    });
+  </script>
 </body>
 </html>
